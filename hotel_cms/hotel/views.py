@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Room, Booking
 from .forms import BookingForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 def room_list(request):
     rooms = Room.objects.filter(is_available=True)
@@ -21,3 +22,14 @@ def book_room(request, room_id):
     else:
         form = BookingForm()
     return render(request, 'hotel/book_room.html', {'form': form, 'room': room})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'hotel/signup.html', {'form': form})
