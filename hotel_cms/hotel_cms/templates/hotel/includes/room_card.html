@@ -1,0 +1,17 @@
+{% load static %}
+<div class="card h-100 shadow-sm hover-card">
+    {% if room.image %}
+        <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.get_room_type_display }} Room" style="height: 200px; object-fit: cover;">
+    {% else %}
+        <img src="{% static 'hotel/images/default_room.jpg' %}" class="card-img-top" alt="Default Room Image" style="height: 200px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">Room {{ room.number }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ room.get_room_type_display }}</h6>
+        <p class="card-text">{{ room.description|truncatewords:20 }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="h5 mb-0">${{ room.price }}/night</span>
+            <a href="{% url 'book_room' room.id %}" class="btn btn-primary">Book Now</a>
+        </div>
+    </div>
+</div>

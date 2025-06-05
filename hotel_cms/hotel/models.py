@@ -12,6 +12,7 @@ class Room(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     is_available = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='rooms/', null=True, blank=True)
 
     def __str__(self):
         return f"Room {self.number} ({self.room_type})"

@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import logout as auth_logout
 from .models import Room, Booking
 from .forms import BookingForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 
 def room_list(request):
     rooms = Room.objects.filter(is_available=True)
@@ -33,3 +36,8 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'hotel/signup.html', {'form': form})
+
+def logout_view(request):
+    auth_logout(request)
+    messages.success(request, 'You have been successfully logged out.')
+    return redirect('login')
