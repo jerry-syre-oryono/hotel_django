@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Available Rooms</h2>
+<ul>
+    {% for room in rooms %}
+    <li>
+        {{ room.number }} - {{ room.get_room_type_display }} - ${{ room.price }}
+        <a href="{% url 'book_room' room.id %}">Book Now</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
