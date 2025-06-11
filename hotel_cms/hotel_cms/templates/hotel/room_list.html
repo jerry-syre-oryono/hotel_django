@@ -1,25 +1,56 @@
 {% extends 'hotel/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Available Rooms - Hotel CMS{% endblock %}
 
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% static "images/hotel-hero.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        margin-bottom: 50px;
+        color: white;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
+<div class="hero-section reveal-on-scroll">
+    <div class="container">
+        <h1 class="display-4 mb-4">Welcome to Hotel CMS</h1>
+        <p class="lead">Discover our luxurious rooms and exceptional service</p>
+    </div>
+</div>
+
 <div class="container">
-    <h2 class="mb-4">Available Rooms</h2>
-    <style>
-        .hover-card {
-            transition: transform 0.2s ease-in-out;
-        }
-        .hover-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+    <div class="row mb-5 reveal-on-scroll">
+        <div class="col-md-8">
+            <h2 class="mb-4">Available Rooms</h2>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary active">All</button>
+                <button type="button" class="btn btn-outline-primary">Single</button>
+                <button type="button" class="btn btn-outline-primary">Double</button>
+                <button type="button" class="btn btn-outline-primary">Suite</button>
+            </div>
+        </div>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for room in rooms %}
-        <div class="col">
+        <div class="col reveal-on-scroll" style="transition-delay: {{ forloop.counter0|multiply:100 }}ms">
             {% include 'hotel/includes/room_card.html' with room=room %}
         </div>
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/animations.js' %}"></script>
 {% endblock %}
